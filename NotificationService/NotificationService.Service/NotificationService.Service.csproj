@@ -7,6 +7,11 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="MailKit" Version="3.3.0" />
+	  <PackageReference Include="MimeKit" Version="3.3.0" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <ProjectReference Include="..\NotificationService.Service.Interface\NotificationService.Service.Interface.csproj" />
 	</ItemGroup>
 
