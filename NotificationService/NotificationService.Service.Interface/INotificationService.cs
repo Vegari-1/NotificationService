@@ -1,12 +1,12 @@
-﻿using System;
+﻿using NotificationService.Model;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+
 
 namespace NotificationService.Service.Interface
 {
     public interface INotificationService
     {
+        public Task<Model.Notification> Send(Model.Notification notification);
     }
 }
