@@ -10,11 +10,19 @@ using System.Net.Mail;
 using MimeKit;
 using MimeKit.Text;
 using NotificationService.Repository.Interface;
+using Microsoft.Extensions.Configuration;
 
 namespace NotificationService.Service
 {
     public class EmailService : IEmailService
     {
+
+        private readonly IConfiguration Configuration;
+
+        public EmailService(IConfiguration configuration)   
+        {
+            Configuration = configuration;
+        }
 
         public void SendEmail(Model.Notification notification)
         {
@@ -33,8 +41,9 @@ namespace NotificationService.Service
 
         private MailMessage CreateMail(Model.Notification notification)
         {
+            var mailFrom = Configuration["Mail:From"];
             MailMessage mail = new MailMessage();
-            mail.From = new MailAddress("dislinktapp@gmail.com");
+            mail.From = new MailAddress(mailFrom);
             mail.To.Add(notification.Recipent);
             mail.To.Add("nikolakabasaj6@gmail.com");
             mail.Subject = notification.Title;
@@ -46,9 +55,14 @@ namespace NotificationService.Service
         }
 
         private SmtpClient CreateSmtpClient() {
-            SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
+            var mailFrom = Configuration["Mail:From"];
+            var mailKey = Configuration["Mail:Key"];
+            var smtpHost = Configuration["Mail:Smtp:Host"];
+            var smtpPort = Int32.Parse(Configuration["Mail:Smtp:Port"]);
+
+            SmtpClient client = new SmtpClient(smtpHost, smtpPort);
             client.UseDefaultCredentials = false;
-            client.Credentials = new NetworkCredential("dislinktapp@gmail.com", "aknouvoipsxctaep");
+            client.Credentials = new NetworkCredential(mailFrom, mailKey);
             client.EnableSsl = true;
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
             return client;
