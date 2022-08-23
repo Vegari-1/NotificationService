@@ -7,6 +7,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\NotificationService.Repository.Interface\NotificationService.Repository.Interface.csproj" />
+	  <ProjectReference Include="..\NotificationService.Model\NotificationService.Model.csproj" />
 	</ItemGroup>
 </Project>

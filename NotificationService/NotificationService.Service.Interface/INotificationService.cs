@@ -7,6 +7,6 @@ namespace NotificationService.Service.Interface
 {
     public interface INotificationService
     {
-        public Task<Model.Notification> Send(Model.Notification notification);
+        public void Send(Model.Notification notification);
     }
 }
