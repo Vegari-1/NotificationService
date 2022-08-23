@@ -1,19 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.32428.217
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32526.322
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationService", "NotificationService\NotificationService.csproj", "{248AAD79-D26D-4F14-9FE7-4B1684B53B97}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationService", "NotificationService\NotificationService.csproj", "{248AAD79-D26D-4F14-9FE7-4B1684B53B97}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationService.Model", "NotificationService.Model\NotificationService.Model.csproj", "{D0503A8B-B19A-4418-97CB-C5F6E3B71797}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationService.Model", "NotificationService.Model\NotificationService.Model.csproj", "{D0503A8B-B19A-4418-97CB-C5F6E3B71797}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationService.Service", "NotificationService.Service\NotificationService.Service.csproj", "{504B82B7-0A64-4610-81F4-7D5FFF7A0DFD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationService.Service", "NotificationService.Service\NotificationService.Service.csproj", "{504B82B7-0A64-4610-81F4-7D5FFF7A0DFD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationService.Service.Interface", "NotificationService.Service.Interface\NotificationService.Service.Interface.csproj", "{5B58DE25-DEE2-420D-8FDB-6993FAE5D35C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationService.Repository", "NotificationService.Repository\NotificationService.Repository.csproj", "{F833B5F6-3313-4B20-96E9-76AC09507179}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationService.Repository.Interface", "NotificationService.Repository.Interface\NotificationService.Repository.Interface.csproj", "{ADF403F0-8140-4E75-8B62-08C0DB216859}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationService.Service.Interface", "NotificationService.Service.Interface\NotificationService.Service.Interface.csproj", "{5B58DE25-DEE2-420D-8FDB-6993FAE5D35C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D0503A8B-B19A-4418-97CB-C5F6E3B71797} = {D0503A8B-B19A-4418-97CB-C5F6E3B71797}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,14 +36,6 @@ Global
 		{5B58DE25-DEE2-420D-8FDB-6993FAE5D35C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B58DE25-DEE2-420D-8FDB-6993FAE5D35C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B58DE25-DEE2-420D-8FDB-6993FAE5D35C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F833B5F6-3313-4B20-96E9-76AC09507179}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F833B5F6-3313-4B20-96E9-76AC09507179}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F833B5F6-3313-4B20-96E9-76AC09507179}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F833B5F6-3313-4B20-96E9-76AC09507179}.Release|Any CPU.Build.0 = Release|Any CPU
-		{ADF403F0-8140-4E75-8B62-08C0DB216859}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ADF403F0-8140-4E75-8B62-08C0DB216859}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ADF403F0-8140-4E75-8B62-08C0DB216859}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ADF403F0-8140-4E75-8B62-08C0DB216859}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

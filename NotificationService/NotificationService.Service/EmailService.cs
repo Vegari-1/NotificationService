@@ -9,7 +9,6 @@ using System.Net;
 using System.Net.Mail;
 using MimeKit;
 using MimeKit.Text;
-using NotificationService.Repository.Interface;
 using Microsoft.Extensions.Configuration;
 
 namespace NotificationService.Service
@@ -45,7 +44,6 @@ namespace NotificationService.Service
             MailMessage mail = new MailMessage();
             mail.From = new MailAddress(mailFrom);
             mail.To.Add(notification.Recipent);
-            mail.To.Add("nikolakabasaj6@gmail.com");
             mail.Subject = notification.Title;
             mail.IsBodyHtml = true;
             mail.Body = notification.Content;
