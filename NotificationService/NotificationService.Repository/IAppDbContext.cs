@@ -5,6 +5,6 @@ namespace NotificationService.Repository
 {
     public interface IAppDbContext
     {
-        DbSet<Notification> Notifications { get; set; }
+        DbSet<NotificationConfig> NotificationConfigs { get; set; }
     }
 }

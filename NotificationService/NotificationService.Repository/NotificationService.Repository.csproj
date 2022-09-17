@@ -18,5 +18,8 @@
 		</PackageReference>
 		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.0" />
 	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\NotificationService.Repository.Interface\NotificationService.Repository.Interface.csproj" />
+	</ItemGroup>
 
 </Project>
