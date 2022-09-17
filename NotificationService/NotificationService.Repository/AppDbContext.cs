@@ -9,6 +9,6 @@ namespace PostService.Repository
 
         public AppDbContext(DbContextOptions<AppDbContext> opt) : base(opt) { }
 
-        public DbSet<Notification> Notifications { get; set; }
+        public DbSet<NotificationConfig> NotificationConfigs { get; set; }
     }
 }
