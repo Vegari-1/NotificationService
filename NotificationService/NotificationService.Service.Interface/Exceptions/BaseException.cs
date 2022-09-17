@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Notification.Service.Interface.Exceptions
+﻿namespace NotificationService.Service.Interface.Exceptions
 {
 	public class BaseException : Exception
 	{

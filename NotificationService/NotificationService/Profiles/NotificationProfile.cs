@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using NotificationService.Dto;
+using NotificationService.Model;
 
 namespace NotificationService.Profiles
 {
@@ -9,6 +10,8 @@ namespace NotificationService.Profiles
         {
             // Source -> Target
             CreateMap<MailRequest, Model.Notification>();
+            CreateMap<NotificationConfigRequest, NotificationConfig>();
+            CreateMap<NotificationConfig, NotificationConfigResponse>();
         }
     }
 }

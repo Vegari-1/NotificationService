@@ -1,9 +1,6 @@
 ﻿using System.Text;
 using Newtonsoft.Json;
-using Microsoft.AspNetCore.Http;
-using System.Threading.Tasks;
-using System;
-using Notification.Service.Interface.Exceptions;
+using NotificationService.Service.Interface.Exceptions;
 
 namespace NotificationService.Middlewares
 {
