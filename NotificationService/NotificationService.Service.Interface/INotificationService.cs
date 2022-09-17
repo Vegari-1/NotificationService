@@ -1,12 +1,11 @@
 ﻿using NotificationService.Model;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
 
 namespace NotificationService.Service.Interface
 {
     public interface INotificationService
     {
-        public void Send(Model.Notification notification);
+        public void Send(Notification notification);
+        public Task<NotificationConfig> Update(Guid profileId, NotificationConfig notificationConfig);
+        Task<NotificationConfig> GetByProfileId(Guid profileId);
     }
 }

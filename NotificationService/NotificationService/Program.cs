@@ -1,7 +1,4 @@
 using NotificationService.Service.Interface;
-using Microsoft.EntityFrameworkCore;
-using System;
-using Microsoft.AspNetCore.Builder;
 using NotificationService.Service;
 using OpenTracing;
 using Jaeger.Reporters;
@@ -11,20 +8,39 @@ using Jaeger.Samplers;
 using OpenTracing.Contrib.NetCore.Configuration;
 using OpenTracing.Util;
 using Prometheus;
+using PostService.Repository;
+using Microsoft.EntityFrameworkCore;
+using NotificationService.Repository.Interface;
+using NotificationService.Repository;
+using NotificationService.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//// Add services to the container.
-//builder.Services.AddDbContext<AppDbContext>(options =>
-//    options.UseNpgsql(builder.Configuration.GetConnectionString("DislinktDbConnection")));
-//AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+// DB_HOST from Docker-Compose or Local if null
+var dbHost = Environment.GetEnvironmentVariable("DB_HOST");
+
+//builder.Services.Configure<AppConfig>(
+//  builder.Configuration.GetSection("AppConfig"));
+
+// Postgres
+if (dbHost == null)
+    builder.Services.AddDbContext<AppDbContext>(options =>
+        options.UseNpgsql(
+            builder.Configuration.GetConnectionString("DislinktDbConnection"),
+            x => x.MigrationsHistoryTable("__MigrationsHistory", "notification")));
+else
+    builder.Services.AddDbContext<AppDbContext>(options =>
+        options.UseNpgsql(dbHost, x => x.MigrationsHistoryTable("__MigrationsHistory", "notification")));
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
+// Repositories
+builder.Services.AddScoped<INotificationConfigRepository, NotificationConfigRepository>();
 
 //services
 builder.Services.AddScoped<INotificationService, NotificationService.Service.NotificationService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -59,6 +75,17 @@ builder.Services.Configure<HttpHandlerDiagnosticOptions>(options =>
 
 var app = builder.Build();
 
+// Run all migrations only on Docker container
+if (dbHost != null)
+    using (var scope = app.Services.CreateScope())
+    {
+        var services = scope.ServiceProvider;
+
+        var context = services.GetRequiredService<AppDbContext>();
+        context.Database.Migrate();
+    }
+
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -71,6 +98,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseMiddleware<ExceptionHandlerMiddleware>();
 
 // Prometheus metrics
 app.UseMetricServer();

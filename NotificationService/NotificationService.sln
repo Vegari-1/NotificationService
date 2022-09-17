@@ -14,6 +14,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationService.Service
 		{D0503A8B-B19A-4418-97CB-C5F6E3B71797} = {D0503A8B-B19A-4418-97CB-C5F6E3B71797}
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationService.Repository", "NotificationService.Repository\NotificationService.Repository.csproj", "{6F980719-83D1-4870-A261-98DD61378D2A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationService.Repository.Interface", "NotificationService.Repository.Interface\NotificationService.Repository.Interface.csproj", "{7432C029-CE4A-42E4-9646-41EB01F0ECC6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +40,14 @@ Global
 		{5B58DE25-DEE2-420D-8FDB-6993FAE5D35C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B58DE25-DEE2-420D-8FDB-6993FAE5D35C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B58DE25-DEE2-420D-8FDB-6993FAE5D35C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F980719-83D1-4870-A261-98DD61378D2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F980719-83D1-4870-A261-98DD61378D2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F980719-83D1-4870-A261-98DD61378D2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F980719-83D1-4870-A261-98DD61378D2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7432C029-CE4A-42E4-9646-41EB01F0ECC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7432C029-CE4A-42E4-9646-41EB01F0ECC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7432C029-CE4A-42E4-9646-41EB01F0ECC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7432C029-CE4A-42E4-9646-41EB01F0ECC6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
