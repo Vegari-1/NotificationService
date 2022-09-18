@@ -6,5 +6,7 @@ namespace NotificationService.Repository.Interface.Sync
 	{
 		Profile GetById(Guid id);
 		Task<Profile> GetByIdAsync(Guid id);
-    }
+		public IEnumerable<Profile> GetConnectedProfilesForProfileId(Guid profileId);
+
+	}
 }

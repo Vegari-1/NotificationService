@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NotificationService.Model;
+using NotificationService.Model.Sync;
 using NotificationService.Repository.Interface;
 using PostService.Repository;
 
@@ -36,5 +37,13 @@ namespace NotificationService.Repository
                                 .Where(x => x.ProfileId == profileId)
                                 .FirstOrDefaultAsync();
         }
+
+        public IEnumerable<NotificationConfig> GetByProfileIdList(IEnumerable<Guid> profileIds)
+        {
+            return _context.NotificationConfigs
+                    .Where(x => profileIds.Contains(x.ProfileId))
+                    .ToList();
+        }
+
     }
 }

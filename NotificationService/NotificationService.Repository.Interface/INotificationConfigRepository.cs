@@ -8,5 +8,6 @@ namespace NotificationService.Repository.Interface
 		Task<NotificationConfig> GetByIdAsync(Guid id);
 		NotificationConfig GetByProfileId(Guid profileId);
 		Task<NotificationConfig> GetByProfileIdAsync(Guid profileId);
+		IEnumerable<NotificationConfig> GetByProfileIdList(IEnumerable<Guid> profileIds);
     }
 }
