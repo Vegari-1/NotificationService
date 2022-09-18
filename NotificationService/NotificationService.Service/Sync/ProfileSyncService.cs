@@ -1,7 +1,9 @@
 ﻿using BusService;
 using BusService.Contracts;
 using Microsoft.Extensions.Logging;
+using NotificationService.Model;
 using NotificationService.Model.Sync;
+using NotificationService.Repository.Interface;
 using NotificationService.Repository.Interface.Sync;
 using NotificationService.Service.Interface.Sync;
 
@@ -11,12 +13,15 @@ namespace NotificationService.Service.Sync
     {
         private readonly IMessageBusService _messageBusService;
         private readonly IProfileRepository _profileRepository;
+        private readonly INotificationConfigRepository _notificationConfigRepository;
 
         public ProfileSyncService(IMessageBusService messageBusService, IProfileRepository profileRepository,
+            INotificationConfigRepository notificationConfigRepository, 
             ILogger<ProfileSyncService> logger) : base(logger)
         {
             _messageBusService = messageBusService;
             _profileRepository = profileRepository;
+            _notificationConfigRepository = notificationConfigRepository;
         }
 
         public override Task PublishAsync(Profile entity, string action)
@@ -36,7 +41,15 @@ namespace NotificationService.Service.Sync
                     Username = entity.Username,
                     Email = entity.Email
                 };
-                _profileRepository.Save(profile);
+                profile = _profileRepository.Save(profile);
+                NotificationConfig config = new NotificationConfig
+                {
+                    Connections = false,
+                    Messages = false,
+                    Posts = false,
+                    ProfileId = profile.Id
+                };
+                _notificationConfigRepository.Save(config);
             }
             if (action == Events.Updated)
             {
