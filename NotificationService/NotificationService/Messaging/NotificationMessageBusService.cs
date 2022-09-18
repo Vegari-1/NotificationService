@@ -16,9 +16,8 @@ namespace NotificationService.Messaging
             var policy = BuildPolicy();
             Subscribers.Add(new MessageBusSubscriber(policy, SubjectBuilder.Build(Topics.Profile), typeof(IProfileSyncService)));
             Subscribers.Add(new MessageBusSubscriber(policy, SubjectBuilder.Build(Topics.Connection), typeof(IConnectionSyncService)));
-            // todo: change topic route
-            Subscribers.Add(new MessageBusSubscriber(policy, SubjectBuilder.Build(Topics.Connection), typeof(IMessageSyncService)));
-            Subscribers.Add(new MessageBusSubscriber(policy, SubjectBuilder.Build(Topics.Connection), typeof(IPostSyncService)));
+            Subscribers.Add(new MessageBusSubscriber(policy, SubjectBuilder.Build(Topics.Message), typeof(IMessageSyncService)));
+            Subscribers.Add(new MessageBusSubscriber(policy, SubjectBuilder.Build(Topics.Post), typeof(IPostSyncService)));
         }
 
         private Policy BuildPolicy()

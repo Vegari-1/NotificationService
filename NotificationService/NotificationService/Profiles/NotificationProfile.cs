@@ -9,7 +9,7 @@ namespace NotificationService.Profiles
         public NotificationProfile()
         {
             // Source -> Target
-            CreateMap<MailRequest, Model.Notification>();
+            CreateMap<MailRequest, Notification>();
             CreateMap<NotificationConfigRequest, NotificationConfig>();
             CreateMap<NotificationConfig, NotificationConfigResponse>();
         }
