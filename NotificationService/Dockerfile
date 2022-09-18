@@ -7,6 +7,7 @@ ARG github_username
 ARG github_pat
 WORKDIR /src
 COPY NotificationService/NotificationService.csproj NotificationService/
+COPY config/NuGet.Config .
 RUN dotnet restore NotificationService/NotificationService.csproj
 COPY . .
 WORKDIR /src/NotificationService
