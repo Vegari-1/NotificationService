@@ -37,7 +37,7 @@ namespace NotificationService.Service
             dbConfig.Connections = notificationConfig.Connections;
             dbConfig.Posts = notificationConfig.Posts;
 
-            await _notificationConfigRepository.SaveChanges();
+            await _notificationConfigRepository.SaveChangesAsync();
 
             return dbConfig;
         }
