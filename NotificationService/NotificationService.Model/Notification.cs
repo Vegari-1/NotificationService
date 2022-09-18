@@ -7,7 +7,5 @@
         public string? Content { get; set; }
 
         public string? Recipent { get; set; }
-
-        public NotificationType Type { get; set; }
     }
 }

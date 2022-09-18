@@ -62,9 +62,8 @@ builder.Services.AddScoped<IEmailService, EmailService>();
 // Sync Services
 builder.Services.AddScoped<IProfileSyncService, ProfileSyncService>();
 builder.Services.AddScoped<IConnectionSyncService, ConnectionSyncService>();
-// todo: create additional sync services
-//builder.Services.AddScoped<IMessageSyncService, MessageSyncService>();
-//builder.Services.AddScoped<IPostSyncService, PostSyncService>();
+builder.Services.AddScoped<IMessageSyncService, MessageSyncService>();
+builder.Services.AddScoped<IPostSyncService, PostSyncService>();
 builder.Services.AddScoped<IEventSyncService, EventSyncService>();
 
 builder.Services.AddControllers();

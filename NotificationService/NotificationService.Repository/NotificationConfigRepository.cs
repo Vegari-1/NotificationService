@@ -9,14 +9,28 @@ namespace NotificationService.Repository
     {
         public NotificationConfigRepository(AppDbContext context) : base(context) { }
 
-        public async Task<NotificationConfig> GetById(Guid id)
+        public NotificationConfig GetById(Guid id)
+        {
+            return _context.NotificationConfigs
+                        .Where(x => x.Id == id)
+                        .FirstOrDefault();
+        }
+
+        public async Task<NotificationConfig> GetByIdAsync(Guid id)
         {
             return await _context.NotificationConfigs
                                 .Where(x => x.Id == id)
                                 .FirstOrDefaultAsync();
         }
 
-        public async Task<NotificationConfig> GetByProfileId(Guid profileId)
+        public NotificationConfig GetByProfileId(Guid profileId)
+        {
+            return _context.NotificationConfigs
+                        .Where(x => x.ProfileId == profileId)
+                        .FirstOrDefault();
+        }
+
+        public async Task<NotificationConfig> GetByProfileIdAsync(Guid profileId)
         {
             return await _context.NotificationConfigs
                                 .Where(x => x.ProfileId == profileId)
