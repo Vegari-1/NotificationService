@@ -13,15 +13,28 @@ using Microsoft.EntityFrameworkCore;
 using NotificationService.Repository.Interface;
 using NotificationService.Repository;
 using NotificationService.Middlewares;
+using BusService;
+using Microsoft.Extensions.Options;
+using NotificationService.Messaging;
+using NotificationService.Service.Interface.Sync;
+using NotificationService.Service.Sync;
+using NotificationService.Repository.Interface.Sync;
+using NotificationService.Repository.Sync;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Environment variables
+builder.Configuration.AddEnvironmentVariables();
+
+// Nats
+builder.Services.Configure<MessageBusSettings>(builder.Configuration.GetSection("Nats"));
+builder.Services.AddSingleton<IMessageBusSettings>(serviceProvider =>
+    serviceProvider.GetRequiredService<IOptions<MessageBusSettings>>().Value);
+builder.Services.AddSingleton<IMessageBusService, MessageBusService>();
+builder.Services.AddHostedService<NotificationMessageBusService>();
+
 // DB_HOST from Docker-Compose or Local if null
 var dbHost = Environment.GetEnvironmentVariable("DB_HOST");
-
-//builder.Services.Configure<AppConfig>(
-//  builder.Configuration.GetSection("AppConfig"));
-
 // Postgres
 if (dbHost == null)
     builder.Services.AddDbContext<AppDbContext>(options =>
@@ -35,10 +48,19 @@ AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 // Repositories
 builder.Services.AddScoped<INotificationConfigRepository, NotificationConfigRepository>();
+builder.Services.AddScoped<IProfileRepository, ProfileRepository>();
+builder.Services.AddScoped<IConnectionRepository, ConnectionRepository>();
 
-//services
+// Services
 builder.Services.AddScoped<INotificationService, NotificationService.Service.NotificationService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
+
+// Sync Services
+builder.Services.AddScoped<IProfileSyncService, ProfileSyncService>();
+builder.Services.AddScoped<IConnectionSyncService, ConnectionSyncService>();
+// todo: create additional sync services
+//builder.Services.AddScoped<IMessageSyncService, MessageSyncService>();
+//builder.Services.AddScoped<IPostSyncService, PostSyncService>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -92,10 +114,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
 
 app.MapControllers();
 
