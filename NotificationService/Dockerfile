@@ -1,8 +1,10 @@
 FROM mcr.microsoft.com/dotnet/aspnet:6.0-focal AS base
 WORKDIR /app
-EXPOSE 5005
+EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0-focal AS build
+ARG github_username
+ARG github_pat
 WORKDIR /src
 COPY NotificationService/NotificationService.csproj NotificationService/
 RUN dotnet restore NotificationService/NotificationService.csproj
