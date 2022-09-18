@@ -1,4 +1,4 @@
-﻿namespace NotificationService.Middlewares
+﻿namespace NotificationService.Middlewares.Exception
 {
     public class ApiError
     {

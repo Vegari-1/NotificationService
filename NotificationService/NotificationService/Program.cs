@@ -12,7 +12,7 @@ using PostService.Repository;
 using Microsoft.EntityFrameworkCore;
 using NotificationService.Repository.Interface;
 using NotificationService.Repository;
-using NotificationService.Middlewares;
+using NotificationService.Middlewares.Exception;
 using BusService;
 using Microsoft.Extensions.Options;
 using NotificationService.Messaging;
@@ -20,11 +20,15 @@ using NotificationService.Service.Interface.Sync;
 using NotificationService.Service.Sync;
 using NotificationService.Repository.Interface.Sync;
 using NotificationService.Repository.Sync;
+using NotificationService.Middlewares.Events;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Environment variables
 builder.Configuration.AddEnvironmentVariables();
+
+builder.Services.Configure<AppConfig>(
+    builder.Configuration.GetSection("AppConfig"));
 
 // Nats
 builder.Services.Configure<MessageBusSettings>(builder.Configuration.GetSection("Nats"));
@@ -61,6 +65,7 @@ builder.Services.AddScoped<IConnectionSyncService, ConnectionSyncService>();
 // todo: create additional sync services
 //builder.Services.AddScoped<IMessageSyncService, MessageSyncService>();
 //builder.Services.AddScoped<IPostSyncService, PostSyncService>();
+builder.Services.AddScoped<IEventSyncService, EventSyncService>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -118,6 +123,7 @@ if (app.Environment.IsDevelopment())
 app.MapControllers();
 
 app.UseMiddleware<ExceptionHandlerMiddleware>();
+app.UseEventSenderMiddleware();
 
 // Prometheus metrics
 app.UseMetricServer();

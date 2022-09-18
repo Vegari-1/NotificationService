@@ -27,7 +27,7 @@ namespace NotificationService.Service
             }
             catch (Exception ex)
             {
-                throw ex;
+                Console.WriteLine(ex.ToString());
             }
         }
 
