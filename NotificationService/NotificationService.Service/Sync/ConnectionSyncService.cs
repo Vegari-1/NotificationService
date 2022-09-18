@@ -1,8 +1,11 @@
 ﻿using BusService;
 using BusService.Contracts;
 using Microsoft.Extensions.Logging;
+using NotificationService.Model;
 using NotificationService.Model.Sync;
+using NotificationService.Repository.Interface;
 using NotificationService.Repository.Interface.Sync;
+using NotificationService.Service.Interface;
 using NotificationService.Service.Interface.Sync;
 
 namespace NotificationService.Service.Sync
@@ -11,12 +14,20 @@ namespace NotificationService.Service.Sync
     {
         private readonly IMessageBusService _messageBusService;
         private readonly IConnectionRepository _connectionRepository;
+        private readonly IProfileRepository _profileRepository;
+        private readonly INotificationConfigRepository _notificationConfigRepository;
+        private readonly IEmailService _emailService;
 
         public ConnectionSyncService(IMessageBusService messageBusService, IConnectionRepository connectionRepository,
+            IProfileRepository profileRepository, INotificationConfigRepository notificationConfigRepository, 
+            IEmailService emailService, 
             ILogger<ConnectionSyncService> logger) : base(logger)
         {
             _messageBusService = messageBusService;
             _connectionRepository = connectionRepository;
+            _profileRepository = profileRepository;
+            _notificationConfigRepository = notificationConfigRepository;
+            _emailService = emailService;
         }
 
         public override Task PublishAsync(Connection entity, string action)
@@ -35,6 +46,8 @@ namespace NotificationService.Service.Sync
                     Profile2 = entity.Profile2
                 };
                 _connectionRepository.Save(connection);
+
+                SendEmail(entity);
             }
             if (action == Events.Deleted)
             {
@@ -42,6 +55,30 @@ namespace NotificationService.Service.Sync
                 _connectionRepository.Delete(dbConnection);
             }
             return Task.CompletedTask;
+        }
+
+        private void SendEmail(ConnectionContract entity)
+        {
+            Profile receiver = _profileRepository.GetById(entity.Profile2);
+            if (receiver == null)
+                return;
+
+            NotificationConfig config = _notificationConfigRepository.GetByProfileId(receiver.Id);
+            if (!config.Connections)
+                return;
+
+            Profile sender = _profileRepository.GetById(entity.Profile1);
+            if (sender == null)
+                return;
+
+            Notification notification = new Notification
+            {
+                Title = "Dislinkt - New Connection",
+                Content = String.Format("You have a new connection from {0} {1} (@{2})",
+                sender.Name, sender.Surname, sender.Username),
+                Recipent = receiver.Email
+            };
+            _emailService.SendEmail(notification);
         }
     }
 }

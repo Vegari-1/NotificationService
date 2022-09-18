@@ -60,5 +60,6 @@ namespace NotificationService.Service.Sync
             }
             return Task.CompletedTask;
         }
+
     }
 }
