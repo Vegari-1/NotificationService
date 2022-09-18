@@ -30,6 +30,8 @@ namespace NotificationService.Service
         {
             NotificationConfig dbConfig = await _notificationConfigRepository.GetById(notificationConfig.Id);
 
+            if (dbConfig == null)
+                throw new EntityNotFoundException(typeof(NotificationConfig), "id");
             if (!profileId.Equals(dbConfig.ProfileId))
                 throw new ForbiddenException();
 
