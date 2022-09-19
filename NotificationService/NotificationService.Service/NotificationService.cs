@@ -1,10 +1,7 @@
-﻿using BusService;
-using BusService.Contracts;
-using NotificationService.Model;
+﻿using NotificationService.Model;
 using NotificationService.Repository.Interface;
 using NotificationService.Service.Interface;
 using NotificationService.Service.Interface.Exceptions;
-using NotificationService.Service.Interface.Sync;
 
 namespace NotificationService.Service
 {
@@ -12,15 +9,12 @@ namespace NotificationService.Service
     {
         private readonly IEmailService _emailService;
         private readonly INotificationConfigRepository _notificationConfigRepository;
-        private readonly IMessageSyncService _messageSyncService;
 
         public NotificationService(IEmailService emailService, 
-            INotificationConfigRepository notificationConfigRepository,
-            IMessageSyncService messageSyncService)
+            INotificationConfigRepository notificationConfigRepository)
         {
             _emailService = emailService;
             _notificationConfigRepository = notificationConfigRepository;
-            _messageSyncService = messageSyncService;
         }
         public void Send(Notification notification)
         {
@@ -29,7 +23,11 @@ namespace NotificationService.Service
 
         public async Task<NotificationConfig> GetByProfileId(Guid profileId)
         {
-            return await _notificationConfigRepository.GetByProfileIdAsync(profileId);
+            NotificationConfig notificationConfig = await _notificationConfigRepository.GetByProfileIdAsync(profileId);
+            if (notificationConfig == null)
+                throw new EntityNotFoundException(typeof(NotificationConfig), "profile id");
+
+            return notificationConfig;
         }
 
         public async Task<NotificationConfig> Update(Guid profileId, NotificationConfig notificationConfig)
