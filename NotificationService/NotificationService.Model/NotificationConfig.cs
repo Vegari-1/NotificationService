@@ -11,6 +11,5 @@ namespace NotificationService.Model
         public bool Posts { get; set; }
 
         public Guid ProfileId { get; set; }
-        //public virtual Profile Profile { get; set; }
     }
 }
