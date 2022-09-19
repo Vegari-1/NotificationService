@@ -57,18 +57,5 @@ namespace NotificationService
             return Ok(_mapper.Map<NotificationConfigResponse>(notification));
         }
 
-        [HttpPost("email")]
-        public IActionResult SendEmail([FromBody] MailRequest request)
-        {
-            var actionName = ControllerContext.ActionDescriptor.DisplayName;
-            using var scope = _tracer.BuildSpan(actionName).StartActive(true);
-            scope.Span.Log("send email");
-
-            counter.Inc();
-
-            _notificationService.Send(_mapper.Map<Model.Notification>(request));
-            return StatusCode(StatusCodes.Status200OK);
-        }
-
     }
 }
