@@ -8,7 +8,6 @@ using Jaeger.Samplers;
 using OpenTracing.Contrib.NetCore.Configuration;
 using OpenTracing.Util;
 using Prometheus;
-using PostService.Repository;
 using Microsoft.EntityFrameworkCore;
 using NotificationService.Repository.Interface;
 using NotificationService.Repository;
