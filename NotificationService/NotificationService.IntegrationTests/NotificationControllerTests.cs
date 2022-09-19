@@ -50,7 +50,7 @@ namespace AuthService.IntegrationTests
             // When
             using (var request = new HttpRequestMessage(HttpMethod.Get, "api/notification"))
             {
-                request.Headers.Add("profileId", profileId.ToString());
+                request.Headers.Add("profile-id", profileId.ToString());
                 var response = await _client.SendAsync(request);
 
                 // Then
@@ -95,7 +95,7 @@ namespace AuthService.IntegrationTests
             // When
             using (var request = new HttpRequestMessage(HttpMethod.Get, "api/notification"))
             {
-                request.Headers.Add("profileId", profileId.ToString());
+                request.Headers.Add("profile-id", profileId.ToString());
                 request.Content = requestContent;
                 var response = await _client.SendAsync(request);
 
