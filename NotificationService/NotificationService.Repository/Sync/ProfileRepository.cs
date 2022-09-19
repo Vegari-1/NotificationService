@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NotificationService.Model.Sync;
 using NotificationService.Repository.Interface.Sync;
-using PostService.Repository;
 
 namespace NotificationService.Repository.Sync
 {

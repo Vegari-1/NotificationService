@@ -1,9 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NotificationService.Model;
 using NotificationService.Model.Sync;
-using NotificationService.Repository;
 
-namespace PostService.Repository
+namespace NotificationService.Repository
 {
     public class AppDbContext : DbContext, IAppDbContext
     {

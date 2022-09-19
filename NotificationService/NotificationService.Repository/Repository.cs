@@ -1,6 +1,4 @@
 ﻿using NotificationService.Repository.Interface;
-using PostService.Repository;
-
 namespace NotificationService.Repository
 {
     public class Repository<T> : IRepository<T> where T : class
