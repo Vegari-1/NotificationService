@@ -93,7 +93,7 @@ namespace AuthService.IntegrationTests
             var requestContent = new StringContent(JsonConvert.SerializeObject(configRequest), Encoding.UTF8, "application/json");
 
             // When
-            using (var request = new HttpRequestMessage(HttpMethod.Get, "api/notification"))
+            using (var request = new HttpRequestMessage(HttpMethod.Put, "api/notification"))
             {
                 request.Headers.Add("profile-id", profileId.ToString());
                 request.Content = requestContent;
